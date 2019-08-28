@@ -3,6 +3,14 @@ from sql_queries import create_table_queries, drop_table_queries
 
 
 def create_database():
+    """
+    The function to create database
+    
+    Returns:
+        cur  : Use the connection to get a cursor that will be used to execute queries.
+        conn : The connection towards current connecting database.
+    """
+    
     # connect to default database
     conn = psycopg2.connect("host=127.0.0.1 dbname=studentdb user=student password=student")
     conn.set_session(autocommit=True)
@@ -23,12 +31,28 @@ def create_database():
 
 
 def drop_tables(cur, conn):
+    """
+    The function to drop database
+    
+    Parameters:
+        cur  : The cursor that will be used to execute queries.
+        conn : The connection towards current connecting database.
+    """
+    
     for query in drop_table_queries:
         cur.execute(query)
         conn.commit()
 
 
 def create_tables(cur, conn):
+    """
+    The function to drop database
+    
+    Parameters:
+        cur  : The cursor that will be used to execute queries.
+        conn : The connection towards current connecting database.
+    """
+    
     for query in create_table_queries:
         cur.execute(query)
         conn.commit()
