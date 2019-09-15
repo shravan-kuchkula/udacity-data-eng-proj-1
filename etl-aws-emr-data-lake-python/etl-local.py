@@ -172,9 +172,9 @@ def process_log_data(spark, input_data, output_data):
 
 def main():
     spark = create_spark_session()
-    songPath = 's3a://udacity-dend/song_data/*/*/*/*.json'
-    logPath = 's3a://udacity-dend/log_data/*.json'
-    output_data = 's3a://skuchkula/spark-warehouse/'
+    songPath = 'data/song_data/*/*/*/*.json'
+    logPath = 'data/log_data/*.json'
+    output_data = 'spark-warehouse/'
     
     process_song_data(spark, songPath, output_data)    
     process_log_data(spark, logPath, output_data)
