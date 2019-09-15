@@ -61,6 +61,7 @@ And below is an example of what the data in a log file, 2018-11-12-events.json, 
 ## Project Structure
 * **etl.py**: The script reads song_data and load_data from S3, transforms them to create five different tables, and writes them to partitioned parquet files in table directories on S3.
 * **schema.py**: The script captures the column names as per star-schema design.
+* **dl.cfg**: Contains credentials for accessing S3.
 * **Local.ipynb**: Notebook for trying things out locally before putting them into a script.
 * **data**: A sample of song_data and log_data saved locally for testing before going to S3.
 * **spark-warehouse**: Output tables written to parquet files. Each table has its own directory. 
@@ -77,7 +78,7 @@ A simple star schema was employed for designing the tables.
 <p align="middle">
   <img src="images/tabledesign.png" />
 
-## How to run this project?
+## How to run this project on AWS EMR?
 ### Create a Data Lake with Spark and AWS EMR.
 To create an Elastic Map Reduce data lake on AWS, use the following steps:
 
@@ -99,5 +100,8 @@ To create an Elastic Map Reduce data lake on AWS, use the following steps:
 
 > Note: Since the master node does not have some python libraries, you may have to **sudo pip install python-library**.
 
+## How to run this project locally?
+As the size of the data located on S3 is quite large, I have also provided an option to run this project locally. That is, instead of retrieving the data from S3, you can retrieve the data from `data` directory, then process it on the EMR cluster and store the result back locally to `spark-warehouse`. This is especially useful to iteratively develop your processing logic, without waiting for a long time to load data from S3.
 
+To do so, run the etl-local.py
 
