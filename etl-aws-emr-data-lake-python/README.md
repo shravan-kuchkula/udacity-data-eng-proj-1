@@ -94,7 +94,7 @@ To create an Elastic Map Reduce data lake on AWS, use the following steps:
 1. Once the cluster is ready, we can ssh into the master node from your terminal session. This will connect you to the EMR cluster.
 ![ssh-emr](images/ssh-emr.png)
 
-2. Now you can transfer your files to /home/hadoop and then run the `spark-submit` command to submit your spark jobs. 
+2. Now you can transfer your files to /home/hadoop and then run the `spark-submit` command to submit your spark jobs. Make sure you update the `dl.cfg` with your S3 creds.
 
 ![scripts](images/scripts.png)
 
