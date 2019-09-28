@@ -5,13 +5,9 @@ from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators import PostgresOperator
 from helpers.create_tables import create_all_tables
 
-# AWS_KEY = os.environ.get('AWS_KEY')
-# AWS_SECRET = os.environ.get('AWS_SECRET')
-
 default_args = {
-    'owner': 'udacity',
-    #'start_date': datetime(2019, 1, 12),
-    'start_date': datetime(2019, 9, 25, 0, 0, 0),
+    'owner': 'shravan',
+    'start_date': datetime.utcnow() - timedelta(hours=5),
     'depends_on_past': False,
     'email_on_retry': False,
     'retries': 2,
@@ -22,7 +18,6 @@ default_args = {
 dag = DAG('create_tables_dag',
           default_args=default_args,
           description='Create tables in Redshift using Airflow',
-          #schedule_interval='0 * * * *',
           schedule_interval=None,
           max_active_runs=1
         )

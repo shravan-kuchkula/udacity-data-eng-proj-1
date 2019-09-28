@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS public.songplays (
 	sessionid int4,
 	location varchar(256),
 	user_agent varchar(256),
-	CONSTRAINT songplays_pkey PRIMARY KEY (playid)
+	CONSTRAINT songplays_pkey PRIMARY KEY (songplay_id)
 );
 """
 
@@ -95,8 +95,6 @@ CREATE TABLE IF NOT EXISTS public.users (
 	CONSTRAINT users_pkey PRIMARY KEY (userid)
 );
 """
-
-
 
 create_all_tables = [CREATE_ARTISTS_TABLE_SQL, CREATE_SONGPLAYS_TABLE_SQL,
 CREATE_SONGS_TABLE_SQL, CREATE_STAGING_EVENTS_TABLE_SQL,CREATE_STAGING_SONGS_TABLE_SQL,
