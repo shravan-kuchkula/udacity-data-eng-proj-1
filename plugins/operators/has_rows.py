@@ -5,6 +5,14 @@ from airflow.utils.decorators import apply_defaults
 
 
 class HasRowsOperator(BaseOperator):
+    """
+    Data quality check to ensure that the specified table has rows.
+
+    :param redshift_conn_id: reference to a specific redshift cluster hook
+    :type redshift_conn_id: str
+    :param table: destination fact table on redshift.
+    :type table: str
+    """
 
     @apply_defaults
     def __init__(self,

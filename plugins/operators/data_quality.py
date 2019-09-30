@@ -4,6 +4,16 @@ from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
 class DataQualityOperator(BaseOperator):
+    """
+    Performs data quality checks by running sql statements to validate the data.
+
+    :param redshift_conn_id: reference to a specific redshift cluster hook
+    :type redshift_conn_id: str
+    :param table: destination fact table on redshift.
+    :type table: str
+    :param query: sql statement to validate the data.
+    :type query: str
+    """
 
     ui_color = '#89DA59'
 

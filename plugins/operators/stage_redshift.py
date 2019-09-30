@@ -4,7 +4,32 @@ from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
 class StageToRedshiftOperator(BaseOperator):
+    """
+    Stages data to a specific redshift cluster from a specified S3 location.
+
+    :param redshift_conn_id: reference to a specific redshift cluster hook
+    :type redshift_conn_id: str
+    :param aws_credentials: reference to a aws hook containing iam details
+    :type aws_credentials: str
+    :param table: destination staging table on redshift.
+    :type table: str
+    :param s3_bucket: source s3 bucket name
+    :type s3_bucket: str
+    :param s3_key: source s3 prefix (templated)
+    :type s3_key: Can receive a str representing a prefix,
+        the prefix can contain a path that is partitioned by some field.
+    :param arn_iam_role: iam role which has permission to read data from s3
+    :type arn_iam_role: str
+    :param region: aws region where the redshift cluster is located.
+    :type region: str
+    :param json_format: source json format
+    :type json_format: str
+    """
     ui_color = '#358140'
+    # use a templated field - a fancy term for templated(formated) strings
+    # s3_key will be : song_data (or)
+    # log_data/{execution_date.year}/{execution_date.month}/{ds}-events.json
+    template_fields = ("s3_key",)
     copy_sql = """
         COPY {}
         FROM '{}'
@@ -14,7 +39,6 @@ class StageToRedshiftOperator(BaseOperator):
         FORMAT AS JSON '{}'
         truncatecolumns;
     """
-
 
     @apply_defaults
     def __init__(self,
@@ -47,8 +71,13 @@ class StageToRedshiftOperator(BaseOperator):
         aws_hook = AwsHook(self.aws_credentials_id)
         redshift_hook = PostgresHook(self.redshift_conn_id)
         self.log.info("Clearing data from destination Redshift table")
-        redshift_hook.run("DELETE FROM {}".format(self.table))
-        s3_path = "s3://{}/{}".format(self.s3_bucket, self.s3_key)
+        redshift_hook.run("truncate {}".format(self.table))
+
+        # as we are providing_context = True, we get them in kwargs form
+        # use **context to upack the dictionary and format the s3_key
+        rendered_key = self.s3_key.format(**context)
+
+        s3_path = "s3://{}/{}".format(self.s3_bucket, rendered_key)
         sql_stmt = StageToRedshiftOperator.copy_sql.format(
             self.table,
             s3_path,
