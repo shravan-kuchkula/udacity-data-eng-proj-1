@@ -105,7 +105,7 @@ Run `docker-compose up` from the directory containing `docker-compose.yml`. Ensu
 
 > **NOTE: You can find details of how to manage Apache Airflow on mac here:** https://gist.github.com/nn/a3f357ff34cf5e3b862f3132fb599cf3
 
-![start_airflow](images/start_airflow.png)
+![start_airflow](images/s/start_airflow.png)
 
 ***Step 3: Configure Apache Airflow Hooks***
 
