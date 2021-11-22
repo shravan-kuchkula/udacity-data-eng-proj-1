@@ -66,7 +66,7 @@ s3://<bucket>/log_data/2018/11/
 
 *S3 Output song popularity data*:
 ```bash
-s3://skuchkula-topsongs/
+s3://s-topsongs/
 songpopularity_2018-11-01
 songpopularity_2018-11-02
 songpopularity_2018-11-03
@@ -80,7 +80,7 @@ The DAG can be configured by giving it some default_args which specify the `star
 
 ```python
 default_args = {
-    'owner': 'shravan',
+    'owner': 'nn',
     'start_date': datetime(2018, 11, 1),
     'end_date': datetime(2018, 11, 30),
     'depends_on_past': False,
@@ -103,7 +103,7 @@ Run the notebook to create AWS Redshift Cluster. Make a note of:
 
 Run `docker-compose up` from the directory containing `docker-compose.yml`. Ensure that you have mapped the volume to point to the location where you have your DAGs.
 
-> **NOTE: You can find details of how to manage Apache Airflow on mac here:** https://gist.github.com/shravan-kuchkula/a3f357ff34cf5e3b862f3132fb599cf3
+> **NOTE: You can find details of how to manage Apache Airflow on mac here:** https://gist.github.com/nn/a3f357ff34cf5e3b862f3132fb599cf3
 
 ![start_airflow](images/start_airflow.png)
 
