@@ -113,7 +113,7 @@ On the left is the `S3 connection`. The Login and password are the IAM user's ac
 
 On the right is the `redshift connection`. These values can be easily gathered from your Redshift cluster
 
-![connections](images/connections.png)
+![connections](images/s/connections.png)
 
 ***Step 4: Execute the create-tables-dag***
 
@@ -123,4 +123,4 @@ This dag will create the staging, fact and dimension tables. The reason we need 
 
 As the execution start date is `2018-11-1` with a schedule interval `@daily` and the execution end date is `2018-11-30`, Airflow will automatically trigger and schedule the dag runs once per day for 30 times. Shown below are the 30 DAG runs ranging from start_date till end_date, that are trigged by airflow once per day. 
 
-![schedule](images/schedule.png)
+![schedule](images/s/schedule.png)
